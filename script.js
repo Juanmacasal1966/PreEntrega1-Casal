@@ -23,6 +23,17 @@ switch (operacion) {
         alert("Operador no válido");
 }
 
+let continuar = true
+
+while (continuar) {
+    calcular() ;
+    let respuesta = prompt ("Desea realizar otro calculo? si/no")
+    if (respuesta !== "si") {
+        continuar = false ;
+    }
+}
+
+alert ("Gracias por usar la calculadora") ;
 
 
 
