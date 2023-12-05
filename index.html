@@ -9,9 +9,52 @@
 
 <div>
     <h2>Calculadora Interactiva</h2>
-    <button onclick="calcularConAlmacenamiento()">Realizar cálculo</button>
-    <button onclick="buscarResultado()">Buscar Resultado</button>
-    <button onclick="filtrarResultados()">Filtrar Resultados</button>
+    
+    <form id="calculatorForm">
+        <label for="operation">Tipo de Operación:</label>
+        <select id="operation" name="operation">
+            <option value="+">Suma</option>
+            <option value="-">Resta</option>
+            <option value="*">Multiplicación</option>
+            <option value="/">División</option>
+            <option value="^">Potencia</option>
+            <option value="raiz">Raíz Cuadrada</option>
+        </select>
+
+        <br>
+
+        <label for="number1">Primer Número:</label>
+        <input type="number" id="number1" name="number1" step="any" required>
+
+        <div id="exponenteContainer" style="display: none;">
+            <label for="exponente">Exponente:</label>
+            <input type="number" id="exponente" name="exponente" step="any">
+        </div>
+
+        <br>
+
+        <label for="number2" id="number2Label" style="display: none;">Segundo Número:</label>
+        <input type="number" id="number2" name="number2" step="any" style="display: none;">
+
+        <br>
+
+        <button type="button" onclick="calcularConAlmacenamiento()">Realizar cálculo</button>
+    </form>
+
+    <br>
+
+    <label for="searchResult">Buscar Resultado:</label>
+    <input type="number" id="searchResult" step="any">
+    <button type="button" onclick="buscarResultado()">Buscar</button>
+
+    <br>
+
+    <label for="filterCondition">Filtrar Resultados Mayor que:</label>
+    <input type="number" id="filterCondition" step="any">
+    <button type="button" onclick="filtrarResultados()">Filtrar</button>
+
+    <br>
+
     <div id="resultadosEnConsola"></div>
 </div>
 

@@ -1,28 +1,27 @@
-let resultados = [];
+let resultados = JSON.parse(localStorage.getItem("resultados")) || [];
 
 function calcular() {
-    let numero1 = parseFloat(prompt("Ingresar primer número"));
-    let operacion = prompt("Ingrese operación (+, -, *, /, ^, raiz) ");
-    
-    // Verificar si la operación es de elevar o calcular raíz
+    let numero1 = parseFloat(document.getElementById("number1").value);
+    let operacion = document.getElementById("operation").value;
+
     if (operacion === "^" || operacion.toLowerCase() === "raiz") {
         let exponente;
         if (operacion === "^") {
-            exponente = parseFloat(prompt("Ingrese el exponente"));
+            exponente = parseFloat(document.getElementById("exponente").value);
         }
-        
+
         if (operacion.toLowerCase() === "raiz" && numero1 < 0) {
             alert("No se puede calcular la raíz cuadrada de un número negativo");
             return;
         }
-        
+
         if (operacion.toLowerCase() === "raiz") {
             resultado = Math.sqrt(numero1);
         } else {
             resultado = Math.pow(numero1, exponente);
         }
     } else {
-        let numero2 = parseFloat(prompt("Ingresar segundo número"));
+        let numero2 = parseFloat(document.getElementById("number2").value);
 
         switch (operacion) {
             case "+":
@@ -56,12 +55,13 @@ function calcularConAlmacenamiento() {
     let resultado = calcular();
     if (resultado !== undefined) {
         resultados.push(resultado);
+        localStorage.setItem("resultados", JSON.stringify(resultados));
         actualizarResultadosEnConsola();
     }
 }
 
 function buscarResultado() {
-    let valorBuscado = parseFloat(prompt("Ingrese el resultado a buscar"));
+    let valorBuscado = parseFloat(document.getElementById("searchResult").value);
 
     let margenError = 0.000001;
 
@@ -76,7 +76,7 @@ function buscarResultado() {
 }
 
 function filtrarResultados() {
-    let condicion = parseFloat(prompt("Ingrese la condición de filtrado"));
+    let condicion = parseFloat(document.getElementById("filterCondition").value);
 
     let resultadosFiltrados = resultados.filter(resultado => resultado > condicion);
 
@@ -87,6 +87,19 @@ function actualizarResultadosEnConsola() {
     let resultadosEnConsola = document.getElementById("resultadosEnConsola");
     resultadosEnConsola.innerHTML = "Resultados almacenados: " + resultados.join(", ");
 }
+
+document.getElementById("operation").addEventListener("change", function () {
+    let selectedOperation = this.value;
+    let exponenteContainer = document.getElementById("exponenteContainer");
+    let number2Label = document.getElementById("number2Label");
+    let number2Input = document.getElementById("number2");
+
+    exponenteContainer.style.display = selectedOperation === "^" ? "block" : "none";
+    number2Label.style.display = selectedOperation !== "raiz" ? "block" : "none";
+    number2Input.style.display = selectedOperation !== "raiz" ? "block" : "none";
+});
+
+   
 
 
 
