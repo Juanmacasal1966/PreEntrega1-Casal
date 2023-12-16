@@ -48,6 +48,13 @@ function calcular() {
     }
 
     alert(`El resultado es: ${resultado}`);
+
+    Swal.fire({
+        title: "Resultado calculado",
+        text: `El resultado es: ${resultado}`,
+        confirmButtonText: "OK"
+    });
+    
     return resultado;
 }
 
@@ -99,7 +106,44 @@ document.getElementById("operation").addEventListener("change", function () {
     number2Input.style.display = selectedOperation !== "raiz" ? "block" : "none";
 });
 
-   
+Swal.fire({
+    title: "Estas listo para comenzar?",
+    width: 600,
+    padding: "3em",
+    color: "#716add",
+    background: "#fff url(/images/trees.png)",
+    backdrop: `
+      rgba(0,0,123,0.4)
+      url("/images/nyan-cat.gif")
+      left top
+      no-repeat
+    `
+  });
+
+  // Agrega tu clave de API de Unsplash aquí
+  const unsplashApiKey = 'WXVqVjHFbsbKIOnMeq5dU4IPPKAODURgphCf77NxXys';
+
+  async function obtenerImagenDeUnsplash() {
+      try {
+          const response = await fetch(`https://api.unsplash.com/search/photos?query=maths&client_id=${unsplashApiKey}`);
+          const data = await response.json();
+  
+          if (data.results && data.results.length > 0) {
+              // Obtén una imagen aleatoria del primer resultado
+              const randomIndex = Math.floor(Math.random() * data.results.length);
+              const imageUrl = data.results[randomIndex].urls.full;
+  
+              // Cambia el fondo de la aplicación con la imagen obtenida
+              document.body.style.backgroundImage = `url(${imageUrl})`;
+          }
+      } catch (error) {
+          console.error('Error al obtener imagen de Unsplash:', error);
+      }
+  }
+  
+  // Llama a la función para obtener una imagen al cargar la página
+  obtenerImagenDeUnsplash();
+  
 
 
 
